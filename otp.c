@@ -4,6 +4,7 @@
 #include <pthread.h>
 #include <sys/stat.h>
 #include <time.h>
+#include <locale.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -68,6 +69,7 @@ int detect_cores() {
 }
 
 int main(int argc, char *argv[]) {
+    setlocale(LC_ALL, "");
     char *src = NULL, *dst = NULL;
     prng_config gen_cfg = {0};
     int opt;
@@ -174,9 +176,9 @@ int main(int argc, char *argv[]) {
     free(ctx.random_pad);
     free(ctx.result_data);
 
-    printf("Обработка завершена за %.3f секунд\n", duration);
-    printf("Файл-источник: %s (%zu байт)\n", src, fsize);
-    printf("Файл-результат: %s (%zu байт)\n", dst, fsize);
+    printf("Processing completed in %.3f seconds\n", duration);
+    printf("Source-file: %s (%zu byte)\n", src, fsize);
+    printf("Result-file: %s (%zu byte)\n", dst, fsize);
 
     return 0;
 }
